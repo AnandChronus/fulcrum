@@ -33,6 +33,15 @@ class Project < ActiveRecord::Base
   has_many :stories,    :dependent => :destroy
   has_many :changesets, :dependent => :destroy
 
+  validates :start_date, :presence => true
+  validate :start_date_should_be_in_the_past
+
+  def start_date_should_be_in_the_past
+    if !start_date.blank? and start_date > Date.today
+      errors.add(:start_date, "can't be in the future")
+    end
+  end
+
   def to_s
     name
   end

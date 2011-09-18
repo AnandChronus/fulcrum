@@ -27,6 +27,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.xml
   def new
     @project = Project.new
+    @project.start_date = DateTime.now.strftime('%Y-%m-%d')
 
     respond_to do |format|
       format.html # new.html.erb
